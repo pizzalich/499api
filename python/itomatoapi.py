@@ -18,23 +18,26 @@ def itomatoGetData():
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')
+        print('HTTP error occurred: {http_err}')
     except Exception as err:
-        print(f'Other error occurred: {err}')
+        print('Other error occurred: {err}')
     else:
         response = requests.get(url=DATAURL)
         data = response.json()
         print(data)
         return data
 
+# USE THIS ONE!!!
+
 
 def itomatoPostData(
         temp=999,
         humidity=-1,
         light=-1,
-        moisture=-1):
+        moisture=-1,
+        ripeness=-1):
     body = {'temp': temp, 'humidity': humidity,
-            'light': light, 'moisture': moisture}
+            'light': light, 'moisture': moisture, 'ripeness': ripeness}
     print(body)
     response = requests.post(DATAURL, json=body)
     print(response.json)
@@ -45,16 +48,15 @@ def itomatoPostData(
 
 
 def itomatoGetImage():
-    # TODO:FIX THIS
-
+    # TODO:FIX THIX
     try:
         response = requests.get(IMAGEURL)
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')  # Python 3.6
+        print('HTTP error occurred: {http_err}')  # Python 3.6
     except Exception as err:
-        print(f'Other error occurred: {err}')  # Python 3.6
+        print('Other error occurred: {err}')  # Python 3.6
     else:
         response = requests.get(url=IMAGEURL)
         data = response.json()
