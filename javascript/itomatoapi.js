@@ -8,6 +8,16 @@ export const itomatoGetData = () => {
   return data;
 };
 
+export const itomatoGetServo = () => {
+  const data = fetch("https://itomato-server.herokuapp.com/servo")
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    })
+    .catch(err => console.log(err));
+  return data;
+};
+
 export const itomatoPostData = (
   temp = 999,
   humidity = -1,
@@ -24,6 +34,29 @@ export const itomatoPostData = (
       humidity: humidity,
       light: light,
       moisture: moisture
+    })
+  })
+    .then(response => response.json())
+    .then(item => {
+      if (Array.isArray(item)) {
+        console.log(item);
+      } else {
+        console.log("data type error");
+      }
+    })
+    .catch(err => console.log(err));
+};
+
+export const itomatoPostServo = (fan = 0, pump = 0, vent = 0) => {
+  fetch("https://itomato-server.herokuapp.com/crud", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      fan: fan,
+      pump: pump,
+      vent: vent
     })
   })
     .then(response => response.json())
